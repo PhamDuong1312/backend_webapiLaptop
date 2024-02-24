@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.get('/',PaginationMiddleware,orderController.index)
 router.get('/user/:id',PaginationMiddleware,orderController.getOrderUser)
+router.get('/bydate',PaginationMiddleware,orderController.getOrderByDate)
+
 router.get('/:id',orderController.getOrder)
 
 

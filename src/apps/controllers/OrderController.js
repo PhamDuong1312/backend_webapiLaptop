@@ -1,7 +1,8 @@
 const Order = require('../models/order');
 const OrderItem = require('../models/orderItem')
 const Cart = require('../models/cart')
-const sendMail = require('../../ultils/index')
+const sendMail = require('../../ultils/index');
+const moment = require('moment');
 
 
 const OrderController = {
@@ -30,6 +31,14 @@ const OrderController = {
     //[GET] /api/order/:id
     getOrder: (req, res, next) => {
         Order.findById(req.params.id).populate({ path: "items", populate: "product" }).populate("user", "fullName")
+            .then((order) => res.json(order))
+            .catch(next)
+    },
+    //[GET] /api/order/bydate
+    getOrderByDate: (req, res, next) => {
+        const start=new Date(req.query.start)
+        const end=new Date(req.query.end)
+        Order.find({dateOrder:{$lte:end,$gte:start},status:"done"}).populate({ path: "items", populate: "product" }).populate("user", "fullName")
             .then((order) => res.json(order))
             .catch(next)
     },
