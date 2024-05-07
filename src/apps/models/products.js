@@ -7,6 +7,8 @@ const Product=new Schema({
     price:{type:"number",required:"true"},
     baoHanh:{type:"string",required:"true"},
     phuKien:{type:"string",required:"true"},
+    quantity:{type:"number",required:"true"},
+    daBan:{type:"number",default:0},
     image:{type:"string",required:"true"},
     giamGia:{type:Number,default:0},
     tinhTrang:{type:"string",required:"true"},

@@ -4,7 +4,6 @@ const CategoryController = {
 
     //[GET] /api/categories
     index:async (req, res, next) => {
-
         const category = await Category.find({name:{ $regex: req.search, $options:"i" }});
         const total=category.length
      

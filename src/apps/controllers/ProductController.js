@@ -58,6 +58,11 @@ const ProductController = {
 
     //[POST] /api/products/create
     create: (req, res, next) => {
+        if(Number(req.body.quantity)>0){
+            req.body.status=true
+        }else{
+            req.body.status=false
+        }
         const product = new Product({ ...req.body, image: req.file.originalname })
         product.save()
             .then(() => res.status(200).json({
@@ -84,6 +89,12 @@ const ProductController = {
     },
     //[PUT] /api/products/edit/:id
     edit: async (req, res, next) => {
+        if(Number(req.body.quantity)>0){
+            req.body.status=true
+        }else{
+            req.body.status=false
+        }
+        
         if (req.file) {
             const product = await Product.findById(req.params.id);
             const imagePath = config.app.static_folder + "/images/" + product.image
